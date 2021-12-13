@@ -1,0 +1,49 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      HSE | Соси
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div>
+    <ion-row>
+      <ion-text color="danger">
+        <h2>{{currentQuestion.title}}</h2>
+      </ion-text>
+    </ion-row>
+    <ion-row>
+      <ng-container [ngTemplateOutlet]="currentQuestion.isPolyChoosable? poly : radio"></ng-container>
+    </ion-row>
+    <ion-row>
+      <ion-button *ngIf="!isFormSubmited" (click)="registerAnswer()">Submit</ion-button>
+      <ion-button *ngIf="isFormSubmited" (click)="onNext()">Next</ion-button>
+    </ion-row>
+    <ion-text>
+      <p *ngIf="scoreString">{{scoreString}}</p>
+    </ion-text>
+  </div>
+</ion-content>
+
+<ng-template #poly>
+  <ion-item *ngFor="let answ of currentQuestion.answers; let index = index">
+    <ion-label>{{answ.text}}</ion-label>
+    <ion-checkbox color="primary"></ion-checkbox>
+  </ion-item>
+</ng-template>
+
+<ng-template #radio>
+  <ion-list>
+  <ion-radio-group (ionChange)="toLocale($event)">
+  <ion-item *ngFor="let answ of currentQuestion.answers; let index = index">
+    <ion-text [ngClass]="{
+                'ion-color': true,
+                'ion-color-danger': !answ.isRight && isFormSubmited,
+                'ion-color-success': answ.isRight && isFormSubmited
+              }">{{answ.text}}</ion-text>
+    <ion-radio [disabled]="isFormSubmited" slot="start" color="danger" [value]="index"></ion-radio>
+  </ion-item>
+  </ion-radio-group>
+  </ion-list>
+</ng-template>
