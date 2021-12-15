@@ -27,23 +27,29 @@
 </ion-content>
 
 <ng-template #poly>
-  <ion-item *ngFor="let answ of currentQuestion.answers; let index = index">
-    <ion-label>{{answ.text}}</ion-label>
-    <ion-checkbox color="primary"></ion-checkbox>
-  </ion-item>
-</ng-template>
-
-<ng-template #radio>
-  <ion-list>
-  <ion-radio-group (ionChange)="toLocale($event)">
-  <ion-item *ngFor="let answ of currentQuestion.answers; let index = index">
-    <ion-text [ngClass]="{
+  <ion-col>
+      <ion-item *ngFor="let answ of currentQuestion.answers; let index = index">
+        <ion-text [ngClass]="{
                 'ion-color': true,
                 'ion-color-danger': !answ.isRight && isFormSubmited,
                 'ion-color-success': answ.isRight && isFormSubmited
               }">{{answ.text}}</ion-text>
-    <ion-radio [disabled]="isFormSubmited" slot="start" color="danger" [value]="index"></ion-radio>
-  </ion-item>
-  </ion-radio-group>
+        <ion-checkbox color="primary" (click)="changeCheckboxStatus(index)"></ion-checkbox>
+      </ion-item>
+  </ion-col>
+</ng-template>
+
+<ng-template #radio>
+  <ion-list>
+    <ion-radio-group (ionChange)="toLocale($event)">
+      <ion-item *ngFor="let answ of currentQuestion.answers; let index = index">
+        <ion-text [ngClass]="{
+                'ion-color': true,
+                'ion-color-danger': !answ.isRight && isFormSubmited,
+                'ion-color-success': answ.isRight && isFormSubmited
+              }">{{answ.text}}</ion-text>
+        <ion-radio [disabled]="isFormSubmited" slot="start" color="danger" [value]="index"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
   </ion-list>
 </ng-template>

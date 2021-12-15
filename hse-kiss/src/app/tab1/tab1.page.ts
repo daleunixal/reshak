@@ -48,6 +48,11 @@ export class Tab1Page implements OnInit{
     }
   }
 
+  public changeCheckboxStatus(index: number): void{
+    const control: AbstractControl = this.form.get([index]);
+    control.setValue(!control.value)
+  }
+
   public toLocale(val: Event){
     const ev: CustomEvent<{value: number}> = val as CustomEvent<{value: number}>
     if(!this.currentQuestion.isPolyChoosable){

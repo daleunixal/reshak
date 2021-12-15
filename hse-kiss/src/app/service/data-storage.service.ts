@@ -82,6 +82,11 @@ export class DataStorageService {
       "question": "Может ли КИС работать в организации одновременно с другими, ранее внедренными информационными системами?",
       "answer": "Да.",
       "others": "А зачем нужно ставить одновременно несколько систем! Нет"
+    },
+    {
+      "question": "С какими подсистемами интегрируется подсистема БААН-сервис?",
+      "answer": "БААН-Сбыт, снабжение и склады!\nБААН-Производство!\nБААН-Финансы",
+      "others": "БААН-Проект! БААН-Транспорт"
     },]
 
   constructor(
@@ -90,7 +95,7 @@ export class DataStorageService {
 
   public getRawGoogle(): QuestionViewModel[]{
     return DataStorageService.globData.map((x): QuestionViewModel => {
-      const rightAnswers: { text: string; isRight: boolean }[] = x.answer.split('!')
+      const rightAnswers: { text: string; isRight: boolean }[] = x.answer.replace('\n', '').split('!')
         .map((q :string): { text: string; isRight: boolean } => {
           return {
             text: q,
