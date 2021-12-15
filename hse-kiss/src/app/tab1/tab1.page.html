@@ -29,12 +29,14 @@
 <ng-template #poly>
   <ion-col>
       <ion-item *ngFor="let answ of currentQuestion.answers; let index = index">
-        <ion-text [ngClass]="{
+        <ion-col size="10">
+          <ion-text [ngClass]="{
                 'ion-color': true,
                 'ion-color-danger': !answ.isRight && isFormSubmited,
                 'ion-color-success': answ.isRight && isFormSubmited
               }">{{answ.text}}</ion-text>
-        <ion-checkbox color="primary" (click)="changeCheckboxStatus(index)"></ion-checkbox>
+        </ion-col>
+          <ion-checkbox color="primary" slot="start" (click)="changeCheckboxStatus(index)"></ion-checkbox>
       </ion-item>
   </ion-col>
 </ng-template>
@@ -43,12 +45,14 @@
   <ion-list>
     <ion-radio-group (ionChange)="toLocale($event)">
       <ion-item *ngFor="let answ of currentQuestion.answers; let index = index">
-        <ion-text [ngClass]="{
+        <ion-col size="10">
+          <ion-text [ngClass]="{
                 'ion-color': true,
                 'ion-color-danger': !answ.isRight && isFormSubmited,
                 'ion-color-success': answ.isRight && isFormSubmited
               }">{{answ.text}}</ion-text>
-        <ion-radio [disabled]="isFormSubmited" slot="start" color="danger" [value]="index"></ion-radio>
+        </ion-col>
+          <ion-radio [disabled]="isFormSubmited" slot="start" color="danger" [value]="index"></ion-radio>
       </ion-item>
     </ion-radio-group>
   </ion-list>
